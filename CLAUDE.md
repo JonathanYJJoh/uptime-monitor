@@ -50,7 +50,7 @@ A production-style uptime monitor (a mini UptimeRobot/Pingdom) that shows he can
 ## How to help
 - Teach, don't dump code. Explain what we're doing and why before writing it, especially for AWS, networking, Docker, and Terraform.
 - Work one phase and one small step at a time. Never write the whole project at once.
-- When reasonable, let him write the code first, then review it.
+- Write the code yourself (his preference as of 2026-10-09), then explain what you did, where, and why, at a beginner-friendly level. Don't ask him to write it first.
 - Point out real-world design decisions he can explain in interviews.
 - Suggest clear git commit points after each step.
 - Keep resume claims honest: write bullets only about what was actually built, with real numbers.
@@ -59,5 +59,5 @@ A production-style uptime monitor (a mini UptimeRobot/Pingdom) that shows he can
 - [ ] Phase 1: Local foundation
   - [x] Repo skeleton (2026-10-07)
   - [x] Step 1a: Postgres 17 running in Compose with a healthcheck and named volume (2026-10-09)
-  - [ ] Step 1b: first migration (he writes it; I review)
+  - [x] Step 1b: migration 000001 (3 tables, indexes, constraints) plus a `migrate` service in Compose (2026-10-09)
   - [ ] Step 1c: insert and query a monitor
