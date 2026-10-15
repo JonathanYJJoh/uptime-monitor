@@ -53,12 +53,13 @@ A production-style uptime monitor (a mini UptimeRobot/Pingdom) that shows he can
 - Write the code yourself (his preference as of 2026-10-09), then explain what you did, where, and why, at a beginner-friendly level. Don't ask him to write it first.
 - Point out real-world design decisions he can explain in interviews.
 - Suggest clear git commit points after each step.
+- Use one feature branch per feature (feat/..., fix/..., chore/...), then push, open a PR, and merge to main. He asked for this on 2026-10-14.
 - Keep resume claims honest: write bullets only about what was actually built, with real numbers.
 
 ## Progress
 - [x] Phase 1: Local foundation (done 2026-10-14). The repo is public at github.com/JonathanYJJoh/uptime-monitor.
 - [ ] Phase 2: Checker worker
   - [x] 2a (2026-10-14): `check_url()`, which checks one URL (status, latency, SSL expiry, timeout), runnable by hand
-  - [ ] 2b: load active monitors from Postgres and save results
+  - [x] 2b (2026-10-14, branch feat/worker-db): load active monitors from Postgres and save results (db.py, main.py run_once)
   - [ ] 2c: scheduler loop (per-monitor intervals, concurrency limit)
   - [ ] 2d: Dockerfile + `worker` service in Compose

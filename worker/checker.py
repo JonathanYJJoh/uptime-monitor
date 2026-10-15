@@ -12,6 +12,7 @@ import httpx
 
 @dataclass
 class CheckResult:
+    checked_at: datetime  # when the check started (UTC)
     status_code: int | None  # None when the site never answered
     response_time_ms: int | None
     success: bool
@@ -22,6 +23,7 @@ class CheckResult:
 async def check_url(
     client: httpx.AsyncClient, url: str, timeout_ms: int, expected_status: int
 ) -> CheckResult:
+    checked_at = datetime.now(timezone.utc)
     start = time.perf_counter()
     try:
         # asyncio.timeout caps the WHOLE check (DNS + connect + TLS + response).
@@ -33,14 +35,14 @@ async def check_url(
                 elapsed_ms = round((time.perf_counter() - start) * 1000)
                 ssl_expires_at = _ssl_expiry(response)
     except TimeoutError:
-        return CheckResult(None, None, False, f"timed out after {timeout_ms} ms", None)
+        return CheckResult(checked_at, None, None, False, f"timed out after {timeout_ms} ms", None)
     except httpx.HTTPError as e:
         # Covers DNS failures, refused connections, bad certificates, etc.
-        return CheckResult(None, None, False, f"{type(e).__name__}: {e}", None)
+        return CheckResult(checked_at, None, None, False, f"{type(e).__name__}: {e}", None)
 
     ok = response.status_code == expected_status
     error = None if ok else f"expected status {expected_status}, got {response.status_code}"
-    return CheckResult(response.status_code, elapsed_ms, ok, error, ssl_expires_at)
+    return CheckResult(checked_at, response.status_code, elapsed_ms, ok, error, ssl_expires_at)
 
 
 def _ssl_expiry(response: httpx.Response) -> datetime | None:
