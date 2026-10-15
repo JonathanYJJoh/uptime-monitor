@@ -56,8 +56,9 @@ A production-style uptime monitor (a mini UptimeRobot/Pingdom) that shows he can
 - Keep resume claims honest: write bullets only about what was actually built, with real numbers.
 
 ## Progress
-- [ ] Phase 1: Local foundation
-  - [x] Repo skeleton (2026-10-07)
-  - [x] Step 1a: Postgres 17 running in Compose with a healthcheck and named volume (2026-10-09)
-  - [x] Step 1b: migration 000001 (3 tables, indexes, constraints) plus a `migrate` service in Compose (2026-10-09)
-  - [ ] Step 1c: insert and query a monitor
+- [x] Phase 1: Local foundation (done 2026-10-14). The repo is public at github.com/JonathanYJJoh/uptime-monitor.
+- [ ] Phase 2: Checker worker
+  - [x] 2a (2026-10-14): `check_url()`, which checks one URL (status, latency, SSL expiry, timeout), runnable by hand
+  - [ ] 2b: load active monitors from Postgres and save results
+  - [ ] 2c: scheduler loop (per-monitor intervals, concurrency limit)
+  - [ ] 2d: Dockerfile + `worker` service in Compose
